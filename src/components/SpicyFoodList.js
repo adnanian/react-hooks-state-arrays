@@ -7,10 +7,30 @@ function SpicyFoodList() {
   function handleAddFood() {
     const newFood = getNewRandomSpicyFood();
     console.log(newFood);
+
+    setFoods([...foods, newFood]);
   }
 
+  // function handleLiClick(foodId) {
+  //   const newFoodArray = foods.filter((food) => food.id !== foodId);
+  //   setFoods(newFoodArray);
+  // }
+
+    function handleLiClick(foodId) {
+      const newFoodArray = foods.map((food) => {
+        if (food.id === foodId) {
+          return {
+            ...food,
+            heatLevel: food.heatLevel + 1
+          };
+        }
+        return food;
+      });
+      setFoods(newFoodArray);
+    }
+
   const foodList = foods.map((food) => (
-    <li key={food.id}>
+    <li key={food.id} onClick={() => handleLiClick(food.id)}>
       {food.name} | Heat: {food.heatLevel} | Cuisine: {food.cuisine}
     </li>
   ));
